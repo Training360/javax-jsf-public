@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
+    http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+
+    <application>
+        <locale-config>
+            <default-locale>hu</default-locale>
+            <supported-locale>en</supported-locale>
+        </locale-config>
+        <resource-bundle>
+            <base-name>Messages</base-name>
+            <var>msgs</var>
+        </resource-bundle>
+    </application>
+
+    <navigation-rule>
+        <from-view-id>employees.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>details</from-outcome>
+            <if>#{employeesController.readOnly}</if>
+            <to-view-id>employee-details.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>details</from-outcome>
+            <to-view-id>update-employee.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+
+    <flow-definition id="create-employee">
+        <flow-return id="exit">
+            <from-outcome>/employees.html?faces-redirect=true</from-outcome>
+        </flow-return>
+    </flow-definition>
+
+</faces-config>

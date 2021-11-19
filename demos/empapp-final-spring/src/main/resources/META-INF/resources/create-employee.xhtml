@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<f:view>
+    <ui:composition template="/templates/page.xhtml">
+        <ui:define name="title">Create employee</ui:define>
+        <ui:define name="content">
+
+            <h:messages globalOnly="true"/>
+
+            <h:form id="create-form">
+                <h:panelGroup layout="block" class="form-group" id="name-form-group">
+                    <h:outputLabel for="name-input" value="Name"/>
+                    <h:inputText value="#{createEmployeeController.command.name}" id="name-input"
+                                 styleClass="form-control #{component.valid ? '' : 'is-invalid'}">
+                        <f:ajax event="blur" render="name-form-group" />
+                        <f:ajax event="keyup"
+                                listener="#{createEmployeeController.calculateMonogram}"
+                                render="monogram-text" />
+                    </h:inputText>
+                    <h:message for="name-input" styleClass="invalid-feedback"/>
+                </h:panelGroup>
+
+                <div class="form-group">
+                    <h:outputText value="#{createEmployeeController.monogram}"
+                                  id="monogram-text" />
+                </div>
+
+
+                <h:commandButton value="Create employee" action="#{createEmployeeController.saveEmployeeFirst}"
+                                 id="save-button"
+                                 styleClass="btn btn-primary"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</f:view>
+</html>

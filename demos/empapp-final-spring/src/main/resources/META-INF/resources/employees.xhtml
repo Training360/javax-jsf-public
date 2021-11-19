@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:emp="http://java.sun.com/jsf/composite/employees"
+      xmlns:p="http://primefaces.org/ui">
+
+<f:view locale="#{localeController.locale}">
+    <ui:composition template="/templates/page.xhtml">
+
+        <ui:define name="title">#{msgs['title']}</ui:define>
+
+        <ui:define name="content">
+
+            <p:clock />
+
+            <f:loadBundle var="mainMsgs" basename="Main"/>
+
+            <h2>#{mainMsgs['subtitle']}</h2>
+
+            <h:form>
+                <h:commandLink value="Magyar"
+                               action="#{localeController.changeLocale('hu')}"/>
+                <h:commandLink value="English"
+                               action="#{localeController.changeLocale('en')}"/>
+            </h:form>
+
+            <h:messages infoClass="alert alert-info"/>
+
+            <f:metadata>
+                <f:viewParam name="query" value="#{employeesController.query}"/>
+                <f:viewAction action="#{employeesController.initEmployees}"/>
+            </f:metadata>
+
+            <form>
+                <input name="query" value="#{employeesController.query}"/>
+                <input type="submit" value="Search"/>
+            </form>
+
+            <h:dataTable value="#{employeesController.employees}" var="employee"
+                         styleClass="table table-striped">
+                <h:column>
+                    <f:facet name="header">
+                        Id
+                    </f:facet>
+
+                    <h:link value="#{employee.id}" outcome="details">
+                        <f:param value="#{employee.id}" name="id"/>
+                    </h:link>
+
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        Name
+                    </f:facet>
+                    #{employee.name}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        Card number
+                    </f:facet>
+                    #{employee.cardNumber}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        Type
+                    </f:facet>
+                    #{employee.type}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        Skills
+                    </f:facet>
+                    #{employee.skills}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">
+                        Image
+                    </f:facet>
+                    <h:graphicImage value="/files/#{employee.fileName}"
+                                    alt="#{employee.name}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">
+                        Started at
+                    </f:facet>
+                    <h:outputText value="#{employee.startedAt}">
+                        <f:converter converterId="localDateTimeConverter"/>
+                    </h:outputText>
+
+                </h:column>
+
+                <h:column>
+                    <h:form>
+                        <h:commandButton value="Delete"
+                                         action="#{employeesController.deleteEmployee(employee.id)}">
+                            <f:ajax event="action" execute="@form" render="@all" />
+                        </h:commandButton>
+                    </h:form>
+                </h:column>
+            </h:dataTable>
+
+            <ui:repeat value="#{employeesController.employees}" var="employee">
+                <emp:employee-div employee="#{employee}" />
+            </ui:repeat>
+
+            <h:link value="Create employee" outcome="create-employee"/>
+        </ui:define>
+
+    </ui:composition>
+</f:view>
+
+
+</html>

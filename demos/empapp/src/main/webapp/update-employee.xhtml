@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+    <title>Update employee</title>
+</h:head>
+
+<h:body>
+
+    <h1>
+        <h:outputFormat value="#{msgs['title.edit']}">
+            <f:param value="#{updateEmployeeController.command.name}" />
+        </h:outputFormat>
+        </h1>
+
+    <f:metadata>
+        <f:viewParam name="id" value="#{updateEmployeeController.id}" />
+        <f:viewAction action="#{updateEmployeeController.findEmployee}" />
+    </f:metadata>
+
+    <h:form>
+        <h:inputHidden id="id" value="#{updateEmployeeController.command.id}" />
+        <h:inputText id="name" value="#{updateEmployeeController.command.name}" />
+        <h:commandButton value="Update employee" action="#{updateEmployeeController.update()}" />
+    </h:form>
+    
+</h:body>
+
+</html>
