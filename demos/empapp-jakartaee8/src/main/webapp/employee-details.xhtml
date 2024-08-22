@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:emp="http://java.sun.com/jsf/composite/employees" xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<h:head>
+    <title>Title</title>
+</h:head>
+
+<h:body>
+
+    <f:metadata>
+        <f:viewParam name="id" value="#{employeeDetailsController.id}" />
+        <f:viewAction action="#{employeeDetailsController.findEmployee}" />
+    </f:metadata>
+
+    <h1>Employee details</h1>
+
+    <emp:employee-div employee="#{employeeDetailsController.employee}" />
+
+    <c:if test="#{employeeDetailsController.employee.fileName != null}">
+        <h:graphicImage value="/files/#{employeeDetailsController.employee.fileName}"
+                        alt="#{employeeDetailsController.employee.name}"/>
+    </c:if>
+
+
+</h:body>
+
+</html>

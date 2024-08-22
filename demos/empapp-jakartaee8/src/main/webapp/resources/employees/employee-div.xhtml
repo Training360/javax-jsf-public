@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html" xmlns:composite="http://java.sun.com/jsf/composite">
+
+    <composite:interface>
+        <composite:attribute name="employee" />
+    </composite:interface>
+
+    <composite:implementation>
+        <h:panelGroup id="employee-panel-group" layout="block">
+            Name: #{cc.attrs.employee.name} <br/>
+            Card number: #{cc.attrs.employee.cardNumber} <br/>
+            Id: #{cc.attrs.employee.id}
+        </h:panelGroup>
+    </composite:implementation>
+
+</html>
